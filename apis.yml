@@ -1,15 +1,38 @@
-name: u-s-treasury-fiscal-data
-description: Needs a description.
-image: https://kinlane-productions2.s3.amazonaws.com/apis-json-icons/apis-json.png
-url: https://example.com/apis/apis.yml
-type: Contract
+aid: u-s-treasury-fiscal-data
+name: U.S. Treasury Fiscal Data
+description: The U.S. Treasury Fiscal Data API provides access to government financial data including federal debt, interest rates, and fiscal operations data.
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+url: >-
+  https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/apis.yml
+type: Index
 created: '2024-12-25'
-modified: '2024-12-25'
-specificationVersion: '0.18'
+modified: '2026-03-16'
+specificationVersion: '0.19'
 tags:
-  - Tag
-apis: []
-common: []
+  - Federal Government
+  - Finance
+  - Treasury
+apis:
+  - aid: u-s-treasury-fiscal-data:fiscal-data-api
+    name: Treasury Fiscal Data API
+    description: >-
+      The Treasury Fiscal Data API provides access to federal financial data
+      including federal debt, interest rates, and other fiscal operations data.
+    humanURL: https://fiscaldata.treasury.gov/api-documentation/
+    baseURL: https://api.fiscaldata.treasury.gov/services/api/v1
+    tags:
+      - Treasury
+      - Finance
+    properties:
+      - type: Documentation
+        url: https://fiscaldata.treasury.gov/api-documentation/
+      - type: Getting Started
+        url: https://fiscaldata.treasury.gov/api-documentation/
+common:
+  - type: Website
+    url: https://fiscaldata.treasury.gov/
+  - type: Documentation
+    url: https://fiscaldata.treasury.gov/api-documentation/
 maintainers:
-  - FN: API Evangelist
-    email: info@apievangelist.com
+  - FN: Kin Lane
+    email: kin@apievangelist.com
