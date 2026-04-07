@@ -21,8 +21,8 @@ apis:
     humanURL: https://fiscaldata.treasury.gov/api-documentation/
     baseURL: https://api.fiscaldata.treasury.gov/services/api/v1
     tags:
-      - Treasury
       - Finance
+      - Treasury
     properties:
       - type: Documentation
         url: https://fiscaldata.treasury.gov/api-documentation/
