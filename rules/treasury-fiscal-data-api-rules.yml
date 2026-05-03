@@ -1,0 +1,313 @@
+extends: [[spectral:oas, recommended]]
+rules:
+
+  # ─── Info ───────────────────────────────────────────────────────────────────
+  treasury-info-title-present:
+    description: API must have a title in the info object.
+    message: "{{description}}"
+    severity: error
+    given: $.info
+    then:
+      field: title
+      function: truthy
+
+  treasury-info-description-present:
+    description: API must have a description in the info object.
+    message: "{{description}}"
+    severity: warn
+    given: $.info
+    then:
+      field: description
+      function: truthy
+
+  treasury-info-version-present:
+    description: API must have a version in the info object.
+    message: "{{description}}"
+    severity: error
+    given: $.info
+    then:
+      field: version
+      function: truthy
+
+  treasury-info-contact-present:
+    description: API info should include contact information.
+    message: "{{description}}"
+    severity: warn
+    given: $.info
+    then:
+      field: contact
+      function: truthy
+
+  # ─── Operations ─────────────────────────────────────────────────────────────
+  treasury-operation-id-present:
+    description: All operations must have an operationId.
+    message: "Operation missing operationId: {{path}}"
+    severity: error
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: operationId
+      function: truthy
+
+  treasury-operation-summary-present:
+    description: All operations must have a summary.
+    message: "Operation missing summary: {{path}}"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: summary
+      function: truthy
+
+  treasury-operation-description-present:
+    description: All operations should have a description.
+    message: "Operation missing description: {{path}}"
+    severity: info
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: description
+      function: truthy
+
+  treasury-operation-tags-present:
+    description: All operations should have tags.
+    message: "Operation missing tags: {{path}}"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: tags
+      function: truthy
+
+  treasury-operation-id-pascal-case:
+    description: OperationId should use camelCase naming convention.
+    message: "OperationId '{{value}}' should be camelCase: {{path}}"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].operationId
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9]+$"
+
+  # ─── Parameters ─────────────────────────────────────────────────────────────
+  treasury-parameter-description-present:
+    description: All parameters should have a description.
+    message: "Parameter '{{value}}' missing description: {{path}}"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].parameters[*]
+    then:
+      field: description
+      function: truthy
+
+  treasury-query-parameter-style:
+    description: Query parameters should follow Treasury API naming conventions.
+    message: "Query parameter '{{value}}' should use snake_case or dot notation: {{path}}"
+    severity: info
+    given: $.paths[*].get.parameters[?(@.in=="query")].name
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[a-z][a-zA-Z0-9_\\[\\]]+$"
+
+  # ─── Responses ──────────────────────────────────────────────────────────────
+  treasury-response-200-present:
+    description: All GET operations must have a 200 response.
+    message: "GET operation missing 200 response: {{path}}"
+    severity: error
+    given: $.paths[*].get
+    then:
+      field: responses.200
+      function: truthy
+
+  treasury-response-400-present:
+    description: Operations should define a 400 error response.
+    message: "Operation missing 400 response: {{path}}"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete]
+    then:
+      field: responses.400
+      function: truthy
+
+  treasury-response-description-present:
+    description: All responses should have a description.
+    message: "Response missing description: {{path}}"
+    severity: warn
+    given: $.paths[*][get,post,put,patch,delete].responses[*]
+    then:
+      field: description
+      function: truthy
+
+  treasury-response-schema-present:
+    description: Successful responses should reference a schema.
+    message: "Response missing content/schema: {{path}}"
+    severity: warn
+    given: $.paths[*][get,post].responses['200'].content['application/json']
+    then:
+      field: schema
+      function: truthy
+
+  # ─── Schemas ────────────────────────────────────────────────────────────────
+  treasury-schema-description-present:
+    description: All schemas in components should have a description.
+    message: "Schema '{{path}}' missing description."
+    severity: info
+    given: $.components.schemas[*]
+    then:
+      field: description
+      function: truthy
+
+  treasury-schema-properties-present:
+    description: Object schemas should define properties.
+    message: "Object schema missing properties: {{path}}"
+    severity: warn
+    given: $.components.schemas[?(@.type=="object")]
+    then:
+      field: properties
+      function: truthy
+
+  treasury-property-description-present:
+    description: Schema properties should have descriptions.
+    message: "Property missing description: {{path}}"
+    severity: info
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: description
+      function: truthy
+
+  treasury-property-type-present:
+    description: Schema properties should declare a type.
+    message: "Property missing type: {{path}}"
+    severity: warn
+    given: $.components.schemas[*].properties[*]
+    then:
+      field: type
+      function: truthy
+
+  # ─── Fiscal Data Conventions ─────────────────────────────────────────────────
+  treasury-pagination-fields-param:
+    description: Treasury fiscal endpoints should support fields parameter for field selection.
+    message: "Fiscal endpoint missing 'fields' parameter support: {{path}}"
+    severity: info
+    given: $.paths[*].get.parameters
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: object
+            properties:
+              $ref:
+                type: string
+                pattern: "fields"
+            required: ["$ref"]
+
+  treasury-pagination-filter-param:
+    description: Treasury fiscal endpoints should support filter parameter for data filtering.
+    message: "Fiscal endpoint missing 'filter' parameter support: {{path}}"
+    severity: info
+    given: $.paths[*].get.parameters
+    then:
+      function: schema
+      functionOptions:
+        schema:
+          type: array
+          contains:
+            type: object
+            properties:
+              $ref:
+                type: string
+                pattern: "filter"
+            required: ["$ref"]
+
+  treasury-response-data-envelope:
+    description: Successful responses should use the standard data envelope with meta and links.
+    message: "Response schema should include data, meta, and links properties: {{path}}"
+    severity: info
+    given: $.components.schemas[?(@.properties.data && @.properties.meta && @.properties.links)]
+    then:
+      function: truthy
+
+  # ─── Tags ────────────────────────────────────────────────────────────────────
+  treasury-tags-defined:
+    description: All tags used in operations must be defined at the top level.
+    message: "Tag used but not defined in tags object: {{path}}"
+    severity: warn
+    given: $.tags
+    then:
+      field: name
+      function: truthy
+
+  treasury-tag-description-present:
+    description: All top-level tags should have descriptions.
+    message: "Tag missing description: {{path}}"
+    severity: info
+    given: $.tags[*]
+    then:
+      field: description
+      function: truthy
+
+  # ─── Servers ────────────────────────────────────────────────────────────────
+  treasury-servers-present:
+    description: API must define at least one server.
+    message: "{{description}}"
+    severity: error
+    given: $
+    then:
+      field: servers
+      function: truthy
+
+  treasury-server-url-https:
+    description: Server URLs should use HTTPS.
+    message: "Server URL should use HTTPS: {{value}}"
+    severity: error
+    given: $.servers[*].url
+    then:
+      function: pattern
+      functionOptions:
+        match: "^https://"
+
+  treasury-server-description-present:
+    description: Servers should have descriptions.
+    message: "Server missing description: {{path}}"
+    severity: info
+    given: $.servers[*]
+    then:
+      field: description
+      function: truthy
+
+  # ─── Components ─────────────────────────────────────────────────────────────
+  treasury-components-schemas-present:
+    description: API should define reusable schemas in components.
+    message: "{{description}}"
+    severity: info
+    given: $.components
+    then:
+      field: schemas
+      function: truthy
+
+  treasury-components-parameters-present:
+    description: API should define reusable parameters in components.
+    message: "{{description}}"
+    severity: info
+    given: $.components
+    then:
+      field: parameters
+      function: truthy
+
+  # ─── Paths ──────────────────────────────────────────────────────────────────
+  treasury-path-version-prefix:
+    description: Treasury Fiscal Data API paths should include a version prefix (v1, v2, etc.).
+    message: "Path should include version prefix like /v1/ or /v2/: {{path}}"
+    severity: warn
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^/v[0-9]/"
+
+  treasury-path-lowercase:
+    description: Path segments should be lowercase with underscores.
+    message: "Path should use lowercase with underscores: {{path}}"
+    severity: info
+    given: $.paths[*]~
+    then:
+      function: pattern
+      functionOptions:
+        match: "^[/a-z0-9_{}-]+$"

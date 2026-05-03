@@ -1,0 +1,201 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "treasury": "https://fiscaldata.treasury.gov/vocab/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "FiscalMeta": {
+      "@id": "treasury:FiscalMeta"
+    },
+    "FiscalLinks": {
+      "@id": "treasury:FiscalLinks"
+    },
+    "DebtRecord": {
+      "@id": "treasury:DebtRecord"
+    },
+    "DebtToPennyResponse": {
+      "@id": "treasury:DebtToPennyResponse"
+    },
+    "ExchangeRateRecord": {
+      "@id": "treasury:ExchangeRateRecord"
+    },
+    "ExchangeRateResponse": {
+      "@id": "treasury:ExchangeRateResponse"
+    },
+    "InterestRateRecord": {
+      "@id": "treasury:InterestRateRecord"
+    },
+    "InterestRateResponse": {
+      "@id": "treasury:InterestRateResponse"
+    },
+    "DailyTreasuryRecord": {
+      "@id": "treasury:DailyTreasuryRecord"
+    },
+    "DailyTreasuryStatementResponse": {
+      "@id": "treasury:DailyTreasuryStatementResponse"
+    },
+    "MonthlyTreasuryRecord": {
+      "@id": "treasury:MonthlyTreasuryRecord"
+    },
+    "MonthlyTreasuryStatementResponse": {
+      "@id": "treasury:MonthlyTreasuryStatementResponse"
+    },
+    "GenericFiscalResponse": {
+      "@id": "treasury:GenericFiscalResponse"
+    },
+    "ErrorResponse": {
+      "@id": "treasury:ErrorResponse"
+    },
+    "record_date": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:date"
+    },
+    "tot_pub_debt_out_amt": {
+      "@id": "treasury:totalPublicDebtOutstanding"
+    },
+    "debt_held_public_amt": {
+      "@id": "treasury:debtHeldByPublic"
+    },
+    "intragov_hold_amt": {
+      "@id": "treasury:intragovernmentalHoldings"
+    },
+    "country": {
+      "@id": "schema:addressCountry"
+    },
+    "currency": {
+      "@id": "treasury:currency"
+    },
+    "exchange_rate": {
+      "@id": "treasury:exchangeRate"
+    },
+    "country_currency_desc": {
+      "@id": "treasury:countryCurrencyDescription"
+    },
+    "effective_date": {
+      "@id": "schema:validFrom",
+      "@type": "xsd:date"
+    },
+    "security_desc": {
+      "@id": "dcterms:description"
+    },
+    "security_type_desc": {
+      "@id": "treasury:securityTypeDescription"
+    },
+    "avg_interest_rate_amt": {
+      "@id": "treasury:averageInterestRate"
+    },
+    "account_type": {
+      "@id": "treasury:accountType"
+    },
+    "open_today_bal": {
+      "@id": "treasury:openingBalance"
+    },
+    "deposits_withdrawls_net": {
+      "@id": "treasury:depositsWithdrawalsNet"
+    },
+    "close_today_bal": {
+      "@id": "treasury:closingBalance"
+    },
+    "classification_desc": {
+      "@id": "dcterms:description"
+    },
+    "current_month_rcpt_outly_amt": {
+      "@id": "treasury:currentMonthAmount"
+    },
+    "current_fytd_rcpt_outly_amt": {
+      "@id": "treasury:currentFYTDAmount"
+    },
+    "prior_fytd_rcpt_outly_amt": {
+      "@id": "treasury:priorFYTDAmount"
+    },
+    "count": {
+      "@id": "schema:numberOfItems",
+      "@type": "xsd:integer"
+    },
+    "labels": {
+      "@id": "treasury:labels"
+    },
+    "total-count": {
+      "@id": "treasury:totalCount",
+      "@type": "xsd:integer"
+    },
+    "total-pages": {
+      "@id": "treasury:totalPages",
+      "@type": "xsd:integer"
+    },
+    "data": {
+      "@id": "schema:itemListElement"
+    },
+    "meta": {
+      "@id": "treasury:meta"
+    },
+    "links": {
+      "@id": "schema:potentialAction"
+    },
+    "self": {
+      "@id": "schema:url"
+    },
+    "first": {
+      "@id": "treasury:firstPage"
+    },
+    "prev": {
+      "@id": "treasury:previousPage"
+    },
+    "next": {
+      "@id": "treasury:nextPage"
+    },
+    "last": {
+      "@id": "treasury:lastPage"
+    },
+    "error": {
+      "@id": "treasury:error"
+    },
+    "message": {
+      "@id": "schema:description"
+    },
+    "detail": {
+      "@id": "treasury:errorDetail"
+    },
+    "dataFormats": {
+      "@id": "treasury:dataFormats"
+    },
+    "dataTypes": {
+      "@id": "treasury:dataTypes"
+    },
+    "open_fy_bal": {
+      "@id": "treasury:open_fy_bal"
+    },
+    "open_mo_bal": {
+      "@id": "treasury:open_mo_bal"
+    },
+    "prior_yr_fytd_rcpt_outly_amt": {
+      "@id": "treasury:prior_yr_fytd_rcpt_outly_amt"
+    },
+    "record_calendar_day": {
+      "@id": "treasury:record_calendar_day"
+    },
+    "record_calendar_month": {
+      "@id": "treasury:record_calendar_month"
+    },
+    "record_calendar_quarter": {
+      "@id": "treasury:record_calendar_quarter"
+    },
+    "record_calendar_year": {
+      "@id": "treasury:record_calendar_year"
+    },
+    "record_fiscal_quarter": {
+      "@id": "treasury:record_fiscal_quarter"
+    },
+    "record_fiscal_year": {
+      "@id": "treasury:record_fiscal_year"
+    },
+    "src_line_nbr": {
+      "@id": "treasury:src_line_nbr"
+    },
+    "status": {
+      "@id": "treasury:status",
+      "@type": "xsd:integer"
+    }
+  }
+}

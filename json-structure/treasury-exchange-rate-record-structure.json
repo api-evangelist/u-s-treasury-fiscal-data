@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-exchange-rate-record-structure.json",
+  "name": "ExchangeRateRecord",
+  "description": "A single exchange rate record from the Treasury Reporting Rates dataset.",
+  "type": "object",
+  "properties": {
+    "country": {
+      "type": "string",
+      "description": "Country name.",
+      "example": "Afghanistan"
+    },
+    "currency": {
+      "type": "string",
+      "description": "Currency name.",
+      "example": "Afghani"
+    },
+    "exchange_rate": {
+      "type": "string",
+      "description": "Exchange rate (units of foreign currency per USD).",
+      "example": "64.77"
+    },
+    "effective_date": {
+      "type": "date",
+      "description": "Date the exchange rate became effective.",
+      "example": "2026-03-31"
+    },
+    "record_date": {
+      "type": "date",
+      "description": "Record date in YYYY-MM-DD format.",
+      "example": "2026-03-31"
+    }
+  }
+}

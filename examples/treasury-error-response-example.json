@@ -1,0 +1,5 @@
+{
+  "error": "Bad Request",
+  "message": "Invalid filter parameter syntax.",
+  "status": 400
+}

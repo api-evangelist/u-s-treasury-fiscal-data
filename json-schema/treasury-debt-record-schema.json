@@ -1,0 +1,65 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-debt-record-schema.json",
+  "title": "DebtRecord",
+  "description": "A single record from the Debt to the Penny dataset.",
+  "type": "object",
+  "properties": {
+    "record_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the debt calculation in YYYY-MM-DD format.",
+      "example": "2026-04-30"
+    },
+    "tot_pub_debt_out_amt": {
+      "type": "string",
+      "description": "Total public debt outstanding in U.S. dollars.",
+      "example": "38967833861543.11"
+    },
+    "debt_held_public_amt": {
+      "type": "string",
+      "description": "Portion of debt held by the public in U.S. dollars.",
+      "example": "31272489865435.88"
+    },
+    "intragov_hold_amt": {
+      "type": "string",
+      "description": "Intragovernmental holdings in U.S. dollars.",
+      "example": "7695343996107.23"
+    },
+    "src_line_nbr": {
+      "type": "string",
+      "description": "Source line number.",
+      "example": "1"
+    },
+    "record_fiscal_year": {
+      "type": "string",
+      "description": "Federal fiscal year of the record.",
+      "example": "2026"
+    },
+    "record_fiscal_quarter": {
+      "type": "string",
+      "description": "Federal fiscal quarter of the record.",
+      "example": "Q2"
+    },
+    "record_calendar_year": {
+      "type": "string",
+      "description": "Calendar year of the record.",
+      "example": "2026"
+    },
+    "record_calendar_quarter": {
+      "type": "string",
+      "description": "Calendar quarter of the record.",
+      "example": "Q2"
+    },
+    "record_calendar_month": {
+      "type": "string",
+      "description": "Calendar month of the record.",
+      "example": "04"
+    },
+    "record_calendar_day": {
+      "type": "string",
+      "description": "Calendar day of the record.",
+      "example": "30"
+    }
+  }
+}

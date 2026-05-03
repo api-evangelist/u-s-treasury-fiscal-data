@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-interest-rate-response-structure.json",
+  "name": "InterestRateResponse",
+  "description": "Response from the Average Interest Rates endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of interest rate records.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "links": {
+      "type": "string"
+    }
+  }
+}

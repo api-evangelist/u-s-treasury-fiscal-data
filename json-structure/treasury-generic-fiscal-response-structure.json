@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-generic-fiscal-response-structure.json",
+  "name": "GenericFiscalResponse",
+  "description": "Generic Treasury Fiscal Data API response for datasets not covered by specific schemas.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of data records. Fields vary by dataset.",
+      "items": {
+        "type": "object"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "links": {
+      "type": "string"
+    }
+  }
+}

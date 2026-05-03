@@ -1,0 +1,16 @@
+{
+  "count": 100,
+  "labels": {
+    "record_date": "Record Date",
+    "tot_pub_debt_out_amt": "Total Public Debt Outstanding"
+  },
+  "dataTypes": {
+    "record_date": "DATE",
+    "tot_pub_debt_out_amt": "CURRENCY"
+  },
+  "dataFormats": {
+    "record_date": "YYYY-MM-DD"
+  },
+  "total-count": 8298,
+  "total-pages": 83
+}

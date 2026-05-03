@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-monthly-treasury-record-structure.json",
+  "name": "MonthlyTreasuryRecord",
+  "description": "A single record from the Monthly Treasury Statement.",
+  "type": "object",
+  "properties": {
+    "record_date": {
+      "type": "date",
+      "description": "Record date (last day of the month).",
+      "example": "2026-03-31"
+    },
+    "classification_desc": {
+      "type": "string",
+      "description": "Classification description (e.g., budget category).",
+      "example": "Individual Income Taxes"
+    },
+    "current_month_rcpt_outly_amt": {
+      "type": "string",
+      "description": "Current month receipts or outlays in U.S. dollars.",
+      "example": "185000000000.00"
+    },
+    "current_fytd_rcpt_outly_amt": {
+      "type": "string",
+      "description": "Fiscal year to date receipts or outlays in U.S. dollars.",
+      "example": "1250000000000.00"
+    },
+    "prior_yr_fytd_rcpt_outly_amt": {
+      "type": "string",
+      "description": "Prior year fiscal year to date amount.",
+      "example": "1180000000000.00"
+    }
+  }
+}

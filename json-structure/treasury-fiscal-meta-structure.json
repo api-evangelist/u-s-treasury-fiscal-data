@@ -1,0 +1,47 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-fiscal-meta-structure.json",
+  "name": "FiscalMeta",
+  "description": "Metadata included in all Treasury Fiscal Data API responses.",
+  "type": "object",
+  "properties": {
+    "count": {
+      "type": "integer",
+      "description": "Number of records in this response page.",
+      "example": 100
+    },
+    "labels": {
+      "type": "object",
+      "description": "Human-readable labels for each field in the data.",
+      "example": {
+        "record_date": "Record Date",
+        "tot_pub_debt_out_amt": "Total Public Debt Outstanding"
+      }
+    },
+    "dataTypes": {
+      "type": "object",
+      "description": "Data type for each field (DATE, STRING, CURRENCY, NUMBER, PERCENTAGE).",
+      "example": {
+        "record_date": "DATE",
+        "tot_pub_debt_out_amt": "CURRENCY"
+      }
+    },
+    "dataFormats": {
+      "type": "object",
+      "description": "Display format for each field.",
+      "example": {
+        "record_date": "YYYY-MM-DD"
+      }
+    },
+    "total-count": {
+      "type": "integer",
+      "description": "Total number of records matching the query.",
+      "example": 8298
+    },
+    "total-pages": {
+      "type": "integer",
+      "description": "Total number of pages available.",
+      "example": 83
+    }
+  }
+}

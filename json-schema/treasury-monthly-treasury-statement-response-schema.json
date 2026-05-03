@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-monthly-treasury-statement-response-schema.json",
+  "title": "MonthlyTreasuryStatementResponse",
+  "description": "Response from the Monthly Treasury Statement endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of MTS records.",
+      "items": {
+        "$ref": "#/components/schemas/MonthlyTreasuryRecord"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/FiscalMeta"
+    },
+    "links": {
+      "$ref": "#/components/schemas/FiscalLinks"
+    }
+  }
+}

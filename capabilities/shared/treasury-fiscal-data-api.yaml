@@ -1,0 +1,170 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Treasury Fiscal Data API"
+  description: >-
+    Shared capability definitions for the U.S. Treasury Fiscal Data API
+    providing access to federal financial data including national debt,
+    exchange rates, interest rates, and Treasury financial statements.
+  namespace: treasury-fiscal
+  baseUrl: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+consumes:
+  - type: http
+    namespace: treasury-fiscal
+    baseUrl: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+    openapi: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/openapi/treasury-fiscal-data-api-openapi.yaml
+
+exposes:
+  - type: rest
+    port: 8110
+    namespace: treasury-fiscal-api
+    description: "REST proxy for Treasury Fiscal Data API endpoints."
+
+operations:
+
+  - operationId: get-debt-to-penny
+    name: Get Debt to the Penny
+    description: >-
+      Retrieve daily U.S. public debt outstanding data from the Debt to the
+      Penny dataset. Includes total public debt, debt held by the public,
+      and intragovernmental holdings.
+    method: GET
+    path: /v2/accounting/od/debt_to_penny
+    call: treasury-fiscal.getDebtToPenny
+    parameters:
+      - name: fields
+        in: query
+        description: Comma-separated list of fields to return
+        required: false
+      - name: filter
+        in: query
+        description: Filter records by field values (e.g. record_date:gte:2024-01-01)
+        required: false
+      - name: sort
+        in: query
+        description: Sort by field name (prefix with - for descending)
+        required: false
+      - name: page[number]
+        in: query
+        description: Page number for paginated results
+        required: false
+      - name: page[size]
+        in: query
+        description: Number of records per page (max 10000)
+        required: false
+    outputSchema:
+      $ref: "#/schemas/DebtToPennyResponse"
+
+  - operationId: get-exchange-rates
+    name: Get Treasury Reporting Rates of Exchange
+    description: >-
+      Retrieve official Treasury foreign currency exchange rates used for
+      reporting purposes. Updated quarterly. Covers rates for approximately
+      170 countries.
+    method: GET
+    path: /v1/accounting/od/rates_of_exchange
+    call: treasury-fiscal.getRatesOfExchange
+    parameters:
+      - name: fields
+        in: query
+        required: false
+      - name: filter
+        in: query
+        required: false
+      - name: sort
+        in: query
+        required: false
+      - name: page[number]
+        in: query
+        required: false
+      - name: page[size]
+        in: query
+        required: false
+    outputSchema:
+      $ref: "#/schemas/ExchangeRateResponse"
+
+  - operationId: get-avg-interest-rates
+    name: Get Average Interest Rates on U.S. Treasury Securities
+    description: >-
+      Retrieve monthly average interest rates for U.S. Treasury securities
+      by security type, supporting debt management and financial analysis.
+    method: GET
+    path: /v2/accounting/od/avg_interest_rates
+    call: treasury-fiscal.getAvgInterestRates
+    parameters:
+      - name: fields
+        in: query
+        required: false
+      - name: filter
+        in: query
+        required: false
+      - name: sort
+        in: query
+        required: false
+      - name: page[number]
+        in: query
+        required: false
+      - name: page[size]
+        in: query
+        required: false
+    outputSchema:
+      $ref: "#/schemas/InterestRateResponse"
+
+  - operationId: get-daily-treasury-statement
+    name: Get Daily Treasury Statement
+    description: >-
+      Retrieve Daily Treasury Statement (DTS) data showing Treasury account
+      balances, deposits, withdrawals, and net transactions.
+    method: GET
+    path: /v1/accounting/dts/dts_table_1
+    call: treasury-fiscal.getDailyTreasuryStatement
+    parameters:
+      - name: fields
+        in: query
+        required: false
+      - name: filter
+        in: query
+        required: false
+      - name: sort
+        in: query
+        required: false
+      - name: page[number]
+        in: query
+        required: false
+      - name: page[size]
+        in: query
+        required: false
+    outputSchema:
+      $ref: "#/schemas/DailyTreasuryStatementResponse"
+
+  - operationId: get-monthly-treasury-statement
+    name: Get Monthly Treasury Statement
+    description: >-
+      Retrieve Monthly Treasury Statement (MTS) data with consolidated
+      government budget receipts, outlays, and deficit/surplus by
+      classification category.
+    method: GET
+    path: /v2/accounting/mts/mts_table_4
+    call: treasury-fiscal.getMonthlyTreasuryStatement
+    parameters:
+      - name: fields
+        in: query
+        required: false
+      - name: filter
+        in: query
+        required: false
+      - name: sort
+        in: query
+        required: false
+      - name: page[number]
+        in: query
+        required: false
+      - name: page[size]
+        in: query
+        required: false
+    outputSchema:
+      $ref: "#/schemas/MonthlyTreasuryStatementResponse"

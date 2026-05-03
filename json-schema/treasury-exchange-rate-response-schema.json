@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-exchange-rate-response-schema.json",
+  "title": "ExchangeRateResponse",
+  "description": "Response from the Exchange Rates endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of exchange rate records.",
+      "items": {
+        "$ref": "#/components/schemas/ExchangeRateRecord"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/FiscalMeta"
+    },
+    "links": {
+      "$ref": "#/components/schemas/FiscalLinks"
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-interest-rate-response-schema.json",
+  "title": "InterestRateResponse",
+  "description": "Response from the Average Interest Rates endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of interest rate records.",
+      "items": {
+        "$ref": "#/components/schemas/InterestRateRecord"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/FiscalMeta"
+    },
+    "links": {
+      "$ref": "#/components/schemas/FiscalLinks"
+    }
+  }
+}

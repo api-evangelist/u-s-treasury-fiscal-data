@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-exchange-rate-response-structure.json",
+  "name": "ExchangeRateResponse",
+  "description": "Response from the Exchange Rates endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of exchange rate records.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "links": {
+      "type": "string"
+    }
+  }
+}

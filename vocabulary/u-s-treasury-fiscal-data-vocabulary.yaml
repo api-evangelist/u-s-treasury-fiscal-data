@@ -1,0 +1,353 @@
+vocabulary: "1.0.0"
+
+info:
+  provider: "U.S. Treasury Bureau of the Fiscal Service"
+  description: >-
+    Vocabulary mapping the U.S. Treasury Fiscal Data API operational dimensions
+    and capability dimensions for federal fiscal data analysis workflows including
+    national debt tracking, exchange rates, interest rates, and Treasury statements.
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+operational:
+  apis:
+    - name: Treasury Fiscal Data API
+      namespace: treasury-fiscal
+      version: "1.0"
+      baseUrl: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+      status: active
+
+  resources:
+    - name: debt-to-penny
+      description: Daily U.S. public debt outstanding data since January 1993
+      api: treasury-fiscal
+      actions:
+        - query
+        - list
+    - name: exchange-rates
+      description: Quarterly Treasury foreign currency exchange rates for ~170 countries
+      api: treasury-fiscal
+      actions:
+        - query
+        - list
+    - name: avg-interest-rates
+      description: Monthly average interest rates on U.S. Treasury securities by type
+      api: treasury-fiscal
+      actions:
+        - query
+        - list
+    - name: daily-treasury-statement
+      description: Daily Treasury Statement showing federal government cash activity
+      api: treasury-fiscal
+      actions:
+        - query
+        - list
+    - name: monthly-treasury-statement
+      description: Monthly Treasury Statement with budget receipts and outlays
+      api: treasury-fiscal
+      actions:
+        - query
+        - list
+    - name: savings-bond-redemption
+      description: U.S. savings bond redemption tables and interest rates
+      api: treasury-fiscal
+      actions:
+        - query
+        - list
+    - name: public-debt-securities
+      description: Public debt outstanding by security type from the MSPD
+      api: treasury-fiscal
+      actions:
+        - query
+        - list
+
+  actions:
+    - name: query
+      description: Search and filter fiscal records by date range, amount, or other criteria
+      httpMethod: GET
+      pattern: query
+    - name: list
+      description: Retrieve a paginated collection of fiscal data records
+      httpMethod: GET
+      pattern: read
+    - name: filter
+      description: Apply field-level filters to narrow down fiscal data results
+      httpMethod: GET
+      pattern: query
+    - name: sort
+      description: Order fiscal data records by one or more fields
+      httpMethod: GET
+      pattern: query
+    - name: paginate
+      description: Navigate through large datasets using page number and page size
+      httpMethod: GET
+      pattern: read
+
+  schemas:
+    fiscal:
+      - name: FiscalMeta
+        description: Metadata envelope for Fiscal Data API responses
+        properties:
+          - count
+          - labels
+          - total-count
+          - total-pages
+      - name: FiscalLinks
+        description: Pagination links for Fiscal Data API responses
+        properties:
+          - self
+          - first
+          - prev
+          - next
+          - last
+      - name: DebtRecord
+        description: Single record from the Debt to the Penny dataset
+        properties:
+          - record_date
+          - tot_pub_debt_out_amt
+          - debt_held_public_amt
+          - intragov_hold_amt
+      - name: ExchangeRateRecord
+        description: Single Treasury foreign currency exchange rate record
+        properties:
+          - country
+          - currency
+          - exchange_rate
+          - record_date
+          - country_currency_desc
+          - effective_date
+      - name: InterestRateRecord
+        description: Average interest rate for a single Treasury security type
+        properties:
+          - security_desc
+          - security_type_desc
+          - avg_interest_rate_amt
+          - record_date
+      - name: DailyTreasuryRecord
+        description: Single Daily Treasury Statement account balance record
+        properties:
+          - account_type
+          - open_today_bal
+          - deposits_withdrawls_net
+          - close_today_bal
+          - record_date
+      - name: MonthlyTreasuryRecord
+        description: Single Monthly Treasury Statement classification record
+        properties:
+          - classification_desc
+          - current_month_rcpt_outly_amt
+          - current_fytd_rcpt_outly_amt
+          - prior_fytd_rcpt_outly_amt
+          - record_date
+      - name: ErrorResponse
+        description: Standard error response from the Treasury Fiscal Data API
+        properties:
+          - error
+          - message
+          - detail
+
+  parameters:
+    filtering:
+      - name: fields
+        description: Comma-separated list of fields to include in response
+        type: string
+        example: "record_date,tot_pub_debt_out_amt"
+      - name: filter
+        description: >-
+          Field filter using format field:operator:value (operators: eq, lt, lte,
+          gt, gte, in). Multiple filters joined with comma.
+        type: string
+        example: "record_date:gte:2024-01-01"
+      - name: sort
+        description: Field to sort by. Prefix with - for descending order.
+        type: string
+        example: "-record_date"
+    pagination:
+      - name: page[number]
+        description: Page number (1-indexed) for paginated results
+        type: integer
+        default: 1
+      - name: page[size]
+        description: Number of records per page. Default 100, maximum 10000.
+        type: integer
+        default: 100
+        maximum: 10000
+    format:
+      - name: format
+        description: Response format (json, xml, csv)
+        type: string
+        enum:
+          - json
+          - xml
+          - csv
+
+  enums:
+    responseFormat:
+      - json
+      - xml
+      - csv
+    filterOperators:
+      - eq
+      - lt
+      - lte
+      - gt
+      - gte
+      - in
+    sortDirection:
+      - ascending
+      - descending
+    securityTypes:
+      - Treasury Bills
+      - Treasury Notes
+      - Treasury Bonds
+      - Treasury Inflation-Protected Securities (TIPS)
+      - Treasury Floating Rate Notes (FRN)
+      - Federal Financing Bank
+      - Total Marketable
+      - Total Nonmarketable
+      - Total Interest-bearing Public Debt
+
+  authentication:
+    fiscal:
+      type: none
+      notes: "No authentication required. The Treasury Fiscal Data API is publicly accessible without API keys."
+
+capability:
+  workflows:
+    - name: fiscal-data-intelligence
+      file: capabilities/fiscal-data-intelligence.yaml
+      description: >-
+        Unified workflow for economists, policy analysts, financial journalists,
+        and researchers to access U.S. Treasury federal financial data for
+        analysis and reporting.
+      apis:
+        - treasury-fiscal
+      tools: 5
+      personas:
+        - Economist
+        - Policy Analyst
+        - Financial Journalist
+        - Budget Analyst
+        - Researcher
+      domains:
+        - National Debt
+        - Federal Budget
+        - Exchange Rates
+        - Treasury Securities
+
+  personas:
+    - id: economist
+      name: Economist
+      description: >-
+        Academic or government economist analyzing federal fiscal trends,
+        national debt trajectories, and interest rate impacts on the economy.
+      workflows:
+        - fiscal-data-intelligence
+
+    - id: policy-analyst
+      name: Policy Analyst
+      description: >-
+        Government or think-tank analyst using Treasury fiscal data to assess
+        budget policy proposals, deficit projections, and debt sustainability.
+      workflows:
+        - fiscal-data-intelligence
+
+    - id: financial-journalist
+      name: Financial Journalist
+      description: >-
+        Reporter or journalist tracking daily debt figures, exchange rates,
+        and Treasury financial statements for news coverage and data stories.
+      workflows:
+        - fiscal-data-intelligence
+
+    - id: budget-analyst
+      name: Budget Analyst
+      description: >-
+        Federal or state budget analyst using Treasury data for fiscal planning,
+        appropriations analysis, and government financial reporting.
+      workflows:
+        - fiscal-data-intelligence
+
+    - id: researcher
+      name: Researcher
+      description: >-
+        Academic or policy researcher using Treasury fiscal data for economic
+        research, historical analysis, and quantitative studies.
+      workflows:
+        - fiscal-data-intelligence
+
+  domains:
+    - name: National Debt
+      description: Total U.S. public debt outstanding including debt held by public and intragovernmental holdings
+    - name: Federal Budget
+      description: Federal government receipts, outlays, surplus/deficit from the Monthly Treasury Statement
+    - name: Exchange Rates
+      description: Official Treasury foreign currency exchange rates for federal reporting purposes
+    - name: Treasury Securities
+      description: Interest rates and outstanding amounts for U.S. Treasury bills, notes, bonds, and other securities
+
+  namespaces:
+    consumed:
+      - name: treasury-fiscal
+        baseUri: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+    rest:
+      - name: fiscal-intelligence-api
+        port: 8080
+    mcp:
+      - name: fiscal-intelligence-mcp
+        port: 9090
+
+  binds: []
+
+crossReference:
+  - resource: debt-to-penny
+    operations:
+      - getDebtToPenny
+    workflows:
+      - fiscal-data-intelligence
+    personas:
+      - Economist
+      - Financial Journalist
+      - Budget Analyst
+      - Researcher
+
+  - resource: exchange-rates
+    operations:
+      - getRatesOfExchange
+    workflows:
+      - fiscal-data-intelligence
+    personas:
+      - Economist
+      - Financial Journalist
+      - Researcher
+
+  - resource: avg-interest-rates
+    operations:
+      - getAvgInterestRates
+    workflows:
+      - fiscal-data-intelligence
+    personas:
+      - Economist
+      - Policy Analyst
+      - Budget Analyst
+
+  - resource: daily-treasury-statement
+    operations:
+      - getDailyTreasuryStatement
+    workflows:
+      - fiscal-data-intelligence
+    personas:
+      - Budget Analyst
+      - Financial Journalist
+      - Policy Analyst
+
+  - resource: monthly-treasury-statement
+    operations:
+      - getMonthlyTreasuryStatement
+    workflows:
+      - fiscal-data-intelligence
+    personas:
+      - Policy Analyst
+      - Budget Analyst
+      - Economist
+      - Researcher

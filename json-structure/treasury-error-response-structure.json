@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-error-response-structure.json",
+  "name": "ErrorResponse",
+  "description": "Error response from the Treasury Fiscal Data API.",
+  "type": "object",
+  "properties": {
+    "error": {
+      "type": "string",
+      "description": "Error code.",
+      "example": "Bad Request"
+    },
+    "message": {
+      "type": "string",
+      "description": "Detailed error message.",
+      "example": "Invalid filter parameter syntax."
+    },
+    "status": {
+      "type": "integer",
+      "description": "HTTP status code.",
+      "example": 400
+    }
+  }
+}

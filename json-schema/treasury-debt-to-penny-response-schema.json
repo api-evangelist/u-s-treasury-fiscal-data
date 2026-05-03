@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-debt-to-penny-response-schema.json",
+  "title": "DebtToPennyResponse",
+  "description": "Response from the Debt to the Penny endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of debt records.",
+      "items": {
+        "$ref": "#/components/schemas/DebtRecord"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/FiscalMeta"
+    },
+    "links": {
+      "$ref": "#/components/schemas/FiscalLinks"
+    }
+  }
+}

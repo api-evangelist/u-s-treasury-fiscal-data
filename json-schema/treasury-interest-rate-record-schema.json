@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-interest-rate-record-schema.json",
+  "title": "InterestRateRecord",
+  "description": "A single interest rate record for a Treasury security type.",
+  "type": "object",
+  "properties": {
+    "security_desc": {
+      "type": "string",
+      "description": "Description of the Treasury security type.",
+      "example": "Treasury Bills"
+    },
+    "security_type_desc": {
+      "type": "string",
+      "description": "Broader security type (Marketable or Nonmarketable).",
+      "example": "Marketable"
+    },
+    "avg_interest_rate_amt": {
+      "type": "string",
+      "description": "Average interest rate as a percentage.",
+      "example": "3.702"
+    },
+    "record_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Record date in YYYY-MM-DD format.",
+      "example": "2026-03-31"
+    }
+  }
+}

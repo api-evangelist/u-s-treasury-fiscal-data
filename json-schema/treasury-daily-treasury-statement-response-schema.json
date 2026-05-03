@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-daily-treasury-statement-response-schema.json",
+  "title": "DailyTreasuryStatementResponse",
+  "description": "Response from the Daily Treasury Statement endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of DTS records.",
+      "items": {
+        "$ref": "#/components/schemas/DailyTreasuryRecord"
+      }
+    },
+    "meta": {
+      "$ref": "#/components/schemas/FiscalMeta"
+    },
+    "links": {
+      "$ref": "#/components/schemas/FiscalLinks"
+    }
+  }
+}

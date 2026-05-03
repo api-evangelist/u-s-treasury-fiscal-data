@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-structure/treasury-debt-to-penny-response-structure.json",
+  "name": "DebtToPennyResponse",
+  "description": "Response from the Debt to the Penny endpoint.",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "description": "Array of debt records.",
+      "items": {
+        "type": "string"
+      }
+    },
+    "meta": {
+      "type": "string"
+    },
+    "links": {
+      "type": "string"
+    }
+  }
+}

@@ -1,0 +1,227 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Treasury Fiscal Data Intelligence"
+  description: >-
+    Workflow capability for economists, policy analysts, financial journalists,
+    and researchers to access U.S. Treasury federal financial data including
+    national debt trends, exchange rates, interest rates, and Treasury
+    financial statement data. Provides AI-assisted access to the Treasury
+    Fiscal Data API for data analysis and visualization workflows.
+  tags:
+    - Treasury
+    - Federal Finance
+    - National Debt
+    - Exchange Rates
+    - Government Data
+    - Economics
+  created: "2026-05-03"
+  modified: "2026-05-03"
+
+capability:
+  consumes:
+    - import: treasury-fiscal
+      location: ./shared/treasury-fiscal-data-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: fiscal-intelligence-api
+      description: "Unified REST API for Treasury fiscal data intelligence."
+      resources:
+        - path: /v1/debt
+          name: national-debt
+          description: "U.S. national debt data from the Debt to the Penny dataset."
+          operations:
+            - method: GET
+              name: get-national-debt
+              description: "Retrieve current and historical U.S. public debt outstanding."
+              call: "treasury-fiscal.get-debt-to-penny"
+              with:
+                fields: "rest.fields"
+                filter: "rest.filter"
+                sort: "rest.sort"
+                page[number]: "rest.page_number"
+                page[size]: "rest.page_size"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/exchange-rates
+          name: exchange-rates
+          description: "Treasury foreign currency exchange rates."
+          operations:
+            - method: GET
+              name: get-exchange-rates
+              description: "Retrieve official Treasury reporting rates of exchange by country and quarter."
+              call: "treasury-fiscal.get-exchange-rates"
+              with:
+                fields: "rest.fields"
+                filter: "rest.filter"
+                sort: "rest.sort"
+                page[number]: "rest.page_number"
+                page[size]: "rest.page_size"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/interest-rates
+          name: interest-rates
+          description: "Average interest rates on U.S. Treasury securities."
+          operations:
+            - method: GET
+              name: get-interest-rates
+              description: "Retrieve monthly average interest rates for Treasury securities by type."
+              call: "treasury-fiscal.get-avg-interest-rates"
+              with:
+                fields: "rest.fields"
+                filter: "rest.filter"
+                sort: "rest.sort"
+                page[number]: "rest.page_number"
+                page[size]: "rest.page_size"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/daily-treasury
+          name: daily-treasury-statement
+          description: "Daily Treasury Statement account balances and transactions."
+          operations:
+            - method: GET
+              name: get-daily-treasury
+              description: "Retrieve DTS data showing daily Treasury account activity."
+              call: "treasury-fiscal.get-daily-treasury-statement"
+              with:
+                fields: "rest.fields"
+                filter: "rest.filter"
+                sort: "rest.sort"
+                page[number]: "rest.page_number"
+                page[size]: "rest.page_size"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+        - path: /v1/monthly-treasury
+          name: monthly-treasury-statement
+          description: "Monthly Treasury Statement budget receipts and outlays."
+          operations:
+            - method: GET
+              name: get-monthly-treasury
+              description: "Retrieve MTS data showing monthly federal budget activity."
+              call: "treasury-fiscal.get-monthly-treasury-statement"
+              with:
+                fields: "rest.fields"
+                filter: "rest.filter"
+                sort: "rest.sort"
+                page[number]: "rest.page_number"
+                page[size]: "rest.page_size"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: fiscal-intelligence-mcp
+      transport: http
+      description: "MCP server for AI-assisted federal fiscal data analysis using the Treasury Fiscal Data API."
+      tools:
+        - name: get-national-debt
+          description: >-
+            Retrieve current and historical U.S. national debt data from the
+            Treasury Debt to the Penny dataset. Returns total public debt
+            outstanding, debt held by the public, and intragovernmental
+            holdings. Data updated daily. Use filter parameter like
+            'record_date:gte:2024-01-01' to limit results by date.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "treasury-fiscal.get-debt-to-penny"
+          with:
+            fields: "tools.fields"
+            filter: "tools.filter"
+            sort: "tools.sort"
+            page[number]: "tools.page_number"
+            page[size]: "tools.page_size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-exchange-rates
+          description: >-
+            Retrieve official U.S. Treasury foreign currency exchange rates
+            used for federal reporting purposes. Data updated quarterly.
+            Filter by country name or currency using the filter parameter
+            (e.g., 'country:eq:Japan'). Covers approximately 170 countries.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "treasury-fiscal.get-exchange-rates"
+          with:
+            fields: "tools.fields"
+            filter: "tools.filter"
+            sort: "tools.sort"
+            page[number]: "tools.page_number"
+            page[size]: "tools.page_size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-treasury-interest-rates
+          description: >-
+            Retrieve monthly average interest rates for U.S. Treasury
+            securities by security type (Bills, Notes, Bonds, TIPS, etc.).
+            Useful for tracking borrowing costs and monetary policy analysis.
+            Filter by security_desc to get rates for a specific security type.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "treasury-fiscal.get-avg-interest-rates"
+          with:
+            fields: "tools.fields"
+            filter: "tools.filter"
+            sort: "tools.sort"
+            page[number]: "tools.page_number"
+            page[size]: "tools.page_size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-daily-treasury-statement
+          description: >-
+            Retrieve Daily Treasury Statement (DTS) data showing federal
+            government cash flows including deposits, withdrawals, and account
+            balances. The DTS is published each business day by the Bureau
+            of the Fiscal Service. Use filter to query by date or account type.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "treasury-fiscal.get-daily-treasury-statement"
+          with:
+            fields: "tools.fields"
+            filter: "tools.filter"
+            sort: "tools.sort"
+            page[number]: "tools.page_number"
+            page[size]: "tools.page_size"
+          outputParameters:
+            - type: object
+              mapping: "$."
+
+        - name: get-monthly-treasury-statement
+          description: >-
+            Retrieve Monthly Treasury Statement (MTS) data with consolidated
+            federal budget receipts, outlays, and surplus/deficit by
+            classification. Published monthly by the Bureau of the Fiscal
+            Service. Essential for budget analysis and deficit tracking.
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "treasury-fiscal.get-monthly-treasury-statement"
+          with:
+            fields: "tools.fields"
+            filter: "tools.filter"
+            sort: "tools.sort"
+            page[number]: "tools.page_number"
+            page[size]: "tools.page_size"
+          outputParameters:
+            - type: object
+              mapping: "$."
