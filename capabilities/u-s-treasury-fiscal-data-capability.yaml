@@ -1,0 +1,314 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Treasury Fiscal Data API
+  description: The U.S. Treasury Fiscal Data API provides free, open access to federal financial data including national debt,
+    interest rates, exchange rates, and detailed fiscal operations data. No authentication or API key is required. The API
+    uses RESTful principles, accepts GET requests, and returns JSON responses with standardized pagination, filtering, sorting,
+    and field selection across 80+ endpoints covering all major Treasury financial reports.
+  tags:
+  - U
+  - S
+  - Treasury
+  - Fiscal
+  - Data
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: u-s-treasury-fiscal-data
+    baseUri: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+    description: Treasury Fiscal Data API HTTP API.
+    resources:
+    - name: v2-accounting-od-debt-to-penny
+      path: /v2/accounting/od/debt_to_penny
+      operations:
+      - name: getdebttopenny
+        method: GET
+        description: Treasury Fiscal Data Get Debt to the Penny
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-accounting-od-rates-of-exchange
+      path: /v1/accounting/od/rates_of_exchange
+      operations:
+      - name: getratesofexchange
+        method: GET
+        description: Treasury Fiscal Data Get Treasury Reporting Rates of Exchange
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-accounting-od-avg-interest-rates
+      path: /v2/accounting/od/avg_interest_rates
+      operations:
+      - name: getavginterestrates
+        method: GET
+        description: Treasury Fiscal Data Get Average Interest Rates on U.S. Treasury Securities
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-accounting-dts-dts-table-1
+      path: /v1/accounting/dts/dts_table_1
+      operations:
+      - name: getdailytreasurystatement
+        method: GET
+        description: Treasury Fiscal Data Get Daily Treasury Statement
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-accounting-mts-mts-table-4
+      path: /v2/accounting/mts/mts_table_4
+      operations:
+      - name: getmonthlytreasurystatement
+        method: GET
+        description: Treasury Fiscal Data Get Monthly Treasury Statement Receipts and Outlays
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-accounting-od-redemption-tables
+      path: /v1/accounting/od/redemption_tables
+      operations:
+      - name: getsavingsbondredemptiontables
+        method: GET
+        description: Treasury Fiscal Data Get Savings Bond Redemption Tables
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v2-accounting-od-interest-expense
+      path: /v2/accounting/od/interest_expense
+      operations:
+      - name: getinterestexpensedebt
+        method: GET
+        description: Treasury Fiscal Data Get Interest Expense on the Debt Outstanding
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-accounting-od-mspd-table-1
+      path: /v1/accounting/od/mspd_table_1
+      operations:
+      - name: getpublicdebtbysecuritytype
+        method: GET
+        description: Treasury Fiscal Data Get Monthly Statement of the Public Debt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: v1-accounting-od-gift-contributions
+      path: /v1/accounting/od/gift_contributions
+      operations:
+      - name: getgiftcontributionsdebt
+        method: GET
+        description: Treasury Fiscal Data Get Gift Contributions to Reduce the Public Debt
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: u-s-treasury-fiscal-data-rest
+    description: REST adapter for Treasury Fiscal Data API.
+    resources:
+    - path: /v2/accounting/od/debt_to_penny
+      name: getdebttopenny
+      operations:
+      - method: GET
+        name: getdebttopenny
+        description: Treasury Fiscal Data Get Debt to the Penny
+        call: u-s-treasury-fiscal-data.getdebttopenny
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounting/od/rates_of_exchange
+      name: getratesofexchange
+      operations:
+      - method: GET
+        name: getratesofexchange
+        description: Treasury Fiscal Data Get Treasury Reporting Rates of Exchange
+        call: u-s-treasury-fiscal-data.getratesofexchange
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/accounting/od/avg_interest_rates
+      name: getavginterestrates
+      operations:
+      - method: GET
+        name: getavginterestrates
+        description: Treasury Fiscal Data Get Average Interest Rates on U.S. Treasury Securities
+        call: u-s-treasury-fiscal-data.getavginterestrates
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounting/dts/dts_table_1
+      name: getdailytreasurystatement
+      operations:
+      - method: GET
+        name: getdailytreasurystatement
+        description: Treasury Fiscal Data Get Daily Treasury Statement
+        call: u-s-treasury-fiscal-data.getdailytreasurystatement
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/accounting/mts/mts_table_4
+      name: getmonthlytreasurystatement
+      operations:
+      - method: GET
+        name: getmonthlytreasurystatement
+        description: Treasury Fiscal Data Get Monthly Treasury Statement Receipts and Outlays
+        call: u-s-treasury-fiscal-data.getmonthlytreasurystatement
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounting/od/redemption_tables
+      name: getsavingsbondredemptiontables
+      operations:
+      - method: GET
+        name: getsavingsbondredemptiontables
+        description: Treasury Fiscal Data Get Savings Bond Redemption Tables
+        call: u-s-treasury-fiscal-data.getsavingsbondredemptiontables
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v2/accounting/od/interest_expense
+      name: getinterestexpensedebt
+      operations:
+      - method: GET
+        name: getinterestexpensedebt
+        description: Treasury Fiscal Data Get Interest Expense on the Debt Outstanding
+        call: u-s-treasury-fiscal-data.getinterestexpensedebt
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounting/od/mspd_table_1
+      name: getpublicdebtbysecuritytype
+      operations:
+      - method: GET
+        name: getpublicdebtbysecuritytype
+        description: Treasury Fiscal Data Get Monthly Statement of the Public Debt
+        call: u-s-treasury-fiscal-data.getpublicdebtbysecuritytype
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /v1/accounting/od/gift_contributions
+      name: getgiftcontributionsdebt
+      operations:
+      - method: GET
+        name: getgiftcontributionsdebt
+        description: Treasury Fiscal Data Get Gift Contributions to Reduce the Public Debt
+        call: u-s-treasury-fiscal-data.getgiftcontributionsdebt
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: u-s-treasury-fiscal-data-mcp
+    transport: http
+    description: MCP adapter for Treasury Fiscal Data API for AI agent use.
+    tools:
+    - name: getdebttopenny
+      description: Treasury Fiscal Data Get Debt to the Penny
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getdebttopenny
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getratesofexchange
+      description: Treasury Fiscal Data Get Treasury Reporting Rates of Exchange
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getratesofexchange
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getavginterestrates
+      description: Treasury Fiscal Data Get Average Interest Rates on U.S. Treasury Securities
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getavginterestrates
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getdailytreasurystatement
+      description: Treasury Fiscal Data Get Daily Treasury Statement
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getdailytreasurystatement
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getmonthlytreasurystatement
+      description: Treasury Fiscal Data Get Monthly Treasury Statement Receipts and Outlays
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getmonthlytreasurystatement
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getsavingsbondredemptiontables
+      description: Treasury Fiscal Data Get Savings Bond Redemption Tables
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getsavingsbondredemptiontables
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getinterestexpensedebt
+      description: Treasury Fiscal Data Get Interest Expense on the Debt Outstanding
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getinterestexpensedebt
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getpublicdebtbysecuritytype
+      description: Treasury Fiscal Data Get Monthly Statement of the Public Debt
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getpublicdebtbysecuritytype
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: getgiftcontributionsdebt
+      description: Treasury Fiscal Data Get Gift Contributions to Reduce the Public Debt
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: u-s-treasury-fiscal-data.getgiftcontributionsdebt
+      outputParameters:
+      - type: object
+        mapping: $.
