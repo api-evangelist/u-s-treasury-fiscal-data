@@ -42,7 +42,7 @@ apis:
         title: Monthly Treasury Statement Record Schema
       - url: >-
           https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-ld/treasury-fiscal-data-api-context.jsonld
-        type: JSON-LD
+        type: JSONLD
       - url: >-
           https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-debt-record-example.json
         type: Example
@@ -68,7 +68,7 @@ tags:
   - National Debt
   - Exchange Rates
   - Economics
-type: Contract
+kind: contract
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 access: 3rd-Party
 common:
