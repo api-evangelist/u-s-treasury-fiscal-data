@@ -36,18 +36,18 @@ apis:
     - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-ld/treasury-fiscal-data-api-context.jsonld
       type: JSONLD
     - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-debt-record-example.json
-      type: Example
+      type: Examples
       title: Debt Record Example
     - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
-      type: Example
+      type: Examples
       title: Exchange Rate Record Example
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/treasury-fiscal-data-exchange-rates.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/treasury-fiscal-data-national-debt.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/treasury-fiscal-data-securities.yaml
-    - type: NaftikoCapability
+    - type: X-NaftikoCapability
       url: capabilities/treasury-fiscal-data-treasury-statements.yaml
     description: The U.S. Treasury Fiscal Data API provides free, open access to federal financial data published by the Bureau
       of the Fiscal Service. Covers 80+ datasets including the Debt to the Penny dataset, Treasury Reporting Rates of Exchange,
