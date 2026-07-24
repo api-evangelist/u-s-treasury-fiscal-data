@@ -1,0 +1,272 @@
+openapi: 3.0.3
+info:
+  title: Treasury Fiscal Data Exchange Rates Securities API
+  description: The U.S. Treasury Fiscal Data API provides free, open access to federal financial data including national debt, interest rates, exchange rates, and detailed fiscal operations data. No authentication or API key is required. The API uses RESTful principles, accepts GET requests, and returns JSON responses with standardized pagination, filtering, sorting, and field selection across 80+ endpoints covering all major Treasury financial reports.
+  version: '1.0'
+  contact:
+    name: Bureau of the Fiscal Service
+    url: https://fiscaldata.treasury.gov/
+    email: FiscalDataHelp@fiscal.treasury.gov
+  license:
+    name: Public Domain (U.S. Government Work)
+    url: https://fiscaldata.treasury.gov/about-us/
+  x-generated-from: documentation
+servers:
+- url: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+  description: Treasury Fiscal Data API
+tags:
+- name: Securities
+  description: Treasury securities, savings bonds, and investment data.
+paths:
+  /v1/accounting/od/redemption_tables:
+    get:
+      operationId: getSavingsBondRedemptionTables
+      summary: Treasury Fiscal Data Get Savings Bond Redemption Tables
+      description: Retrieve savings bond redemption values for EE, E, I, and other U.S. savings bond series. Used by financial institutions and individuals to determine current redemption values.
+      tags:
+      - Securities
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/pageNumber'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/format'
+      responses:
+        '200':
+          description: Successful response with savings bond data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericFiscalResponse'
+              examples:
+                GetSavingsBondRedemptionTables200Example:
+                  summary: Default getSavingsBondRedemptionTables 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - bond_series: EE
+                      issue_year: '2000'
+                      issue_month: '01'
+                      redemption_value: '750.00'
+                      record_date: '2026-03-01'
+                    meta:
+                      count: 1
+                      total-count: 85000
+                      total-pages: 85000
+                    links:
+                      self: '&page%5Bnumber%5D=1&page%5Bsize%5D=1'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /v1/accounting/od/mspd_table_1:
+    get:
+      operationId: getPublicDebtBySecurityType
+      summary: Treasury Fiscal Data Get Monthly Statement of the Public Debt
+      description: Retrieve the Monthly Statement of the Public Debt (MSPD) showing the total outstanding federal debt broken down by Treasury security type (bills, notes, bonds, TIPS, FRNs, etc.).
+      tags:
+      - Securities
+      parameters:
+      - $ref: '#/components/parameters/fields'
+      - $ref: '#/components/parameters/filter'
+      - $ref: '#/components/parameters/sort'
+      - $ref: '#/components/parameters/pageNumber'
+      - $ref: '#/components/parameters/pageSize'
+      - $ref: '#/components/parameters/format'
+      responses:
+        '200':
+          description: Successful response with MSPD data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GenericFiscalResponse'
+              examples:
+                GetPublicDebtBySecurityType200Example:
+                  summary: Default getPublicDebtBySecurityType 200 response
+                  x-microcks-default: true
+                  value:
+                    data:
+                    - record_date: '2026-03-31'
+                      security_type_desc: Treasury Notes
+                      outstanding_amt: '15234567890000.00'
+                    meta:
+                      count: 1
+                      total-count: 7200
+                      total-pages: 7200
+                    links:
+                      self: '&page%5Bnumber%5D=1&page%5Bsize%5D=1'
+        '400':
+          description: Bad request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  parameters:
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt).
+      schema:
+        type: string
+        example: record_date,tot_pub_debt_out_amt,debt_held_public_amt
+    format:
+      name: format
+      in: query
+      required: false
+      description: 'Response format. Options: json (default), csv, xml.'
+      schema:
+        type: string
+        enum:
+        - json
+        - csv
+        - xml
+        default: json
+        example: json
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: 'Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31'
+      schema:
+        type: string
+        example: record_date:gte:2025-01-01,record_date:lte:2025-12-31
+    pageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of records per page (max 10000).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+        default: 100
+        example: 100
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: 'Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc'
+      schema:
+        type: string
+        example: -record_date
+    pageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: Page number for pagination (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+  schemas:
+    FiscalLinks:
+      title: FiscalLinks
+      type: object
+      description: Pagination links for navigating result pages.
+      properties:
+        self:
+          type: string
+          description: URL parameters for the current page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        first:
+          type: string
+          description: URL parameters for the first page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        prev:
+          type: string
+          nullable: true
+          description: URL parameters for the previous page (null if on first page).
+          example: null
+        next:
+          type: string
+          nullable: true
+          description: URL parameters for the next page (null if on last page).
+          example: '&page%5Bnumber%5D=2&page%5Bsize%5D=100'
+        last:
+          type: string
+          description: URL parameters for the last page.
+          example: '&page%5Bnumber%5D=83&page%5Bsize%5D=100'
+    FiscalMeta:
+      title: FiscalMeta
+      type: object
+      description: Metadata included in all Treasury Fiscal Data API responses.
+      properties:
+        count:
+          type: integer
+          description: Number of records in this response page.
+          example: 100
+        labels:
+          type: object
+          description: Human-readable labels for each field in the data.
+          additionalProperties:
+            type: string
+          example:
+            record_date: Record Date
+            tot_pub_debt_out_amt: Total Public Debt Outstanding
+        dataTypes:
+          type: object
+          description: Data type for each field (DATE, STRING, CURRENCY, NUMBER, PERCENTAGE).
+          additionalProperties:
+            type: string
+          example:
+            record_date: DATE
+            tot_pub_debt_out_amt: CURRENCY
+        dataFormats:
+          type: object
+          description: Display format for each field.
+          additionalProperties:
+            type: string
+          example:
+            record_date: YYYY-MM-DD
+        total-count:
+          type: integer
+          description: Total number of records matching the query.
+          example: 8298
+        total-pages:
+          type: integer
+          description: Total number of pages available.
+          example: 83
+    ErrorResponse:
+      title: ErrorResponse
+      type: object
+      description: Error response from the Treasury Fiscal Data API.
+      properties:
+        error:
+          type: string
+          description: Error code.
+          example: Bad Request
+        message:
+          type: string
+          description: Detailed error message.
+          example: Invalid filter parameter syntax.
+        status:
+          type: integer
+          description: HTTP status code.
+          example: 400
+    GenericFiscalResponse:
+      title: GenericFiscalResponse
+      type: object
+      description: Generic Treasury Fiscal Data API response for datasets not covered by specific schemas.
+      properties:
+        data:
+          type: array
+          description: Array of data records. Fields vary by dataset.
+          items:
+            type: object
+            additionalProperties: true
+        meta:
+          $ref: '#/components/schemas/FiscalMeta'
+        links:
+          $ref: '#/components/schemas/FiscalLinks'
