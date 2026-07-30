@@ -1,59 +1,190 @@
 aid: u-s-treasury-fiscal-data
 url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/apis.yml
 apis:
-  - aid: u-s-treasury-fiscal-data:fiscal-data-api
-    name: Treasury Fiscal Data API
-    tags:
-    - National Debt
-    - Exchange Rates
-    - Treasury Statements
-    - Securities
-    - Federal Finance
-    humanURL: https://fiscaldata.treasury.gov/
-    baseURL: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
-    properties:
-    - url: https://fiscaldata.treasury.gov/api-documentation/
-      type: Documentation
-    - url: https://fiscaldata.treasury.gov/api-documentation/
-      type: GettingStarted
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/openapi/treasury-fiscal-data-api-openapi.yaml
-      type: OpenAPI
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-debt-record-schema.json
-      type: JSONSchema
-      title: Debt Record Schema
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-exchange-rate-record-schema.json
-      type: JSONSchema
-      title: Exchange Rate Record Schema
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-interest-rate-record-schema.json
-      type: JSONSchema
-      title: Interest Rate Record Schema
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-daily-treasury-record-schema.json
-      type: JSONSchema
-      title: Daily Treasury Statement Record Schema
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-monthly-treasury-record-schema.json
-      type: JSONSchema
-      title: Monthly Treasury Statement Record Schema
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-ld/treasury-fiscal-data-api-context.jsonld
-      type: JSONLD
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-debt-record-example.json
-      type: Examples
-      title: Debt Record Example
-    - url: https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
-      type: Examples
-      title: Exchange Rate Record Example
-    - type: X-NaftikoCapability
-      url: capabilities/treasury-fiscal-data-exchange-rates.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/treasury-fiscal-data-national-debt.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/treasury-fiscal-data-securities.yaml
-    - type: X-NaftikoCapability
-      url: capabilities/treasury-fiscal-data-treasury-statements.yaml
-    description: The U.S. Treasury Fiscal Data API provides free, open access to federal financial data published by the Bureau
-      of the Fiscal Service. Covers 80+ datasets including the Debt to the Penny dataset, Treasury Reporting Rates of Exchange,
-      average interest rates on Treasury securities, Daily Treasury Statements, Monthly Treasury Statements, U.S. savings bond
-      redemption tables, and public debt outstanding by security type. No authentication required. Supports filtering, sorting,
-      field selection, and pagination.
+- aid: u-s-treasury-fiscal-data:u-s-treasury-fiscal-data-exchange-rates-api
+  name: U.S. Treasury Fiscal Data Exchange Rates API
+  description: Treasury reporting rates of exchange for foreign currencies.
+  humanURL: https://fiscaldata.treasury.gov/
+  baseURL: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+  tags:
+  - Exchange Rates
+  properties:
+  - type: OpenAPI
+    url: openapi/u-s-treasury-fiscal-data-exchange-rates-api-openapi.yml
+  - type: Documentation
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: GettingStarted
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-debt-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-exchange-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-interest-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-daily-treasury-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-monthly-treasury-record-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-ld/treasury-fiscal-data-api-context.jsonld
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-debt-record-example.json
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-national-debt.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-securities.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
+- aid: u-s-treasury-fiscal-data:u-s-treasury-fiscal-data-national-debt-api
+  name: U.S. Treasury Fiscal Data National Debt API
+  description: Federal debt, public debt outstanding, and interest rate data.
+  humanURL: https://fiscaldata.treasury.gov/
+  baseURL: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+  tags:
+  - National Debt
+  properties:
+  - type: OpenAPI
+    url: openapi/u-s-treasury-fiscal-data-national-debt-api-openapi.yml
+  - type: Documentation
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: GettingStarted
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-debt-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-exchange-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-interest-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-daily-treasury-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-monthly-treasury-record-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-ld/treasury-fiscal-data-api-context.jsonld
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-debt-record-example.json
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-national-debt.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-securities.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
+- aid: u-s-treasury-fiscal-data:u-s-treasury-fiscal-data-securities-api
+  name: U.S. Treasury Fiscal Data Securities API
+  description: Treasury securities, savings bonds, and investment data.
+  humanURL: https://fiscaldata.treasury.gov/
+  baseURL: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+  tags:
+  - Securities
+  properties:
+  - type: OpenAPI
+    url: openapi/u-s-treasury-fiscal-data-securities-api-openapi.yml
+  - type: Documentation
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: GettingStarted
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-debt-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-exchange-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-interest-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-daily-treasury-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-monthly-treasury-record-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-ld/treasury-fiscal-data-api-context.jsonld
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-debt-record-example.json
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-national-debt.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-securities.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
+- aid: u-s-treasury-fiscal-data:u-s-treasury-fiscal-data-treasury-statements-api
+  name: U.S. Treasury Fiscal Data Treasury Statements API
+  description: Daily and monthly Treasury financial statements.
+  humanURL: https://fiscaldata.treasury.gov/
+  baseURL: https://api.fiscaldata.treasury.gov/services/api/fiscal_service
+  tags:
+  - Treasury Statements
+  properties:
+  - type: OpenAPI
+    url: openapi/u-s-treasury-fiscal-data-treasury-statements-api-openapi.yml
+  - type: Documentation
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: GettingStarted
+    url: https://fiscaldata.treasury.gov/api-documentation/
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-debt-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-exchange-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-interest-rate-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-daily-treasury-record-schema.json
+  - type: JSONSchema
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-schema/treasury-monthly-treasury-record-schema.json
+  - type: JSONLD
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/json-ld/treasury-fiscal-data-api-context.jsonld
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-debt-record-example.json
+  - type: Examples
+    url: >-
+      https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-national-debt.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-securities.yaml
+  - type: X-NaftikoCapability
+    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
 name: U.S. Treasury Fiscal Data
 tags:
   - Federal Government
@@ -63,7 +194,19 @@ tags:
   - Exchange Rates
   - Economics
 kind: contract
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: freemium
+  onboarding: open
+  trial: false
+  try_now: true
+  public: true
+  label: Freemium · Open access
+  confidence: medium
+  source:
+  - plans
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/u-s-treasury-fiscal-data.png
 access: 3rd-Party
 common:
   - type: AgenticAccess
