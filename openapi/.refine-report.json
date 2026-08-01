@@ -1,0 +1,20 @@
+{
+  "provider": "u-s-treasury-fiscal-data",
+  "sources": [
+    "u-s-treasury-fiscal-data-exchange-rates-api-openapi.yml",
+    "u-s-treasury-fiscal-data-national-debt-api-openapi.yml",
+    "u-s-treasury-fiscal-data-securities-api-openapi.yml",
+    "u-s-treasury-fiscal-data-treasury-statements-api-openapi.yml"
+  ],
+  "outputs": [
+    "u-s-treasury-fiscal-data-exchange-rates-api-openapi.yml",
+    "u-s-treasury-fiscal-data-national-debt-api-openapi.yml",
+    "u-s-treasury-fiscal-data-securities-api-openapi.yml",
+    "u-s-treasury-fiscal-data-treasury-statements-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
