@@ -39,14 +39,6 @@ apis:
   - type: Examples
     url: >-
       https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-national-debt.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-securities.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
 - aid: u-s-treasury-fiscal-data:u-s-treasury-fiscal-data-national-debt-api
   name: U.S. Treasury Fiscal Data National Debt API
   description: Federal debt, public debt outstanding, and interest rate data.
@@ -85,14 +77,6 @@ apis:
   - type: Examples
     url: >-
       https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-national-debt.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-securities.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
 - aid: u-s-treasury-fiscal-data:u-s-treasury-fiscal-data-securities-api
   name: U.S. Treasury Fiscal Data Securities API
   description: Treasury securities, savings bonds, and investment data.
@@ -131,14 +115,6 @@ apis:
   - type: Examples
     url: >-
       https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-national-debt.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-securities.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
 - aid: u-s-treasury-fiscal-data:u-s-treasury-fiscal-data-treasury-statements-api
   name: U.S. Treasury Fiscal Data Treasury Statements API
   description: Daily and monthly Treasury financial statements.
@@ -177,14 +153,6 @@ apis:
   - type: Examples
     url: >-
       https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-exchange-rates.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-national-debt.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-securities.yaml
-  - type: X-NaftikoCapability
-    url: capabilities/treasury-fiscal-data-treasury-statements.yaml
 name: U.S. Treasury Fiscal Data
 tags:
   - Federal Government
