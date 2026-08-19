@@ -1,0 +1,434 @@
+{
+  "item": [
+    {
+      "id": "08b341a6-06ff-4b08-b38a-f3850091a6da",
+      "name": "Treasury Statements",
+      "description": {
+        "content": "Daily and monthly Treasury financial statements.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "d63f56ac-8540-4637-bb3c-ea82c683af82",
+          "name": "Treasury Fiscal Data Get Daily Treasury Statement",
+          "request": {
+            "name": "Treasury Fiscal Data Get Daily Treasury Statement",
+            "description": {
+              "content": "Retrieve Daily Treasury Statement (DTS) data showing the daily cash receipts and disbursements of the U.S. Treasury. The DTS is published on every business day and provides insight into the federal government's cash position.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v1",
+                "accounting",
+                "dts",
+                "dts_table_1"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "1",
+                  "description": "Page number for pagination (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "100",
+                  "description": "Number of records per page (max 10000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Options: json (default), csv, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "bc975da6-820b-4d06-b9d7-5adf8dd2958c",
+              "name": "Successful response with DTS data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting",
+                    "dts",
+                    "dts_table_1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "record_date,tot_pub_debt_out_amt,debt_held_public_amt"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-record_date"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "100"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"record_date\": \"2026-04-30\",\n      \"account_type\": \"Federal Reserve Account\",\n      \"open_today_bal\": \"850123456789.00\",\n      \"close_today_bal\": \"845678901234.00\",\n      \"open_mo_bal\": \"750000000000.00\",\n      \"open_fy_bal\": \"700000000000.00\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"total-count\": 45230,\n    \"total-pages\": 45230\n  },\n  \"links\": {\n    \"self\": \"&page%5Bnumber%5D=1&page%5Bsize%5D=1\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "2743e898-2aed-4946-ab9e-ad691ef70cb1",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v1",
+                    "accounting",
+                    "dts",
+                    "dts_table_1"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "record_date,tot_pub_debt_out_amt,debt_held_public_amt"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-record_date"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "100"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Bad Request\",\n  \"message\": \"Invalid filter parameter syntax.\",\n  \"status\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "1b94976d-dc90-49b0-971d-201ca1bba361",
+          "name": "Treasury Fiscal Data Get Monthly Treasury Statement Receipts and Outlays",
+          "request": {
+            "name": "Treasury Fiscal Data Get Monthly Treasury Statement Receipts and Outlays",
+            "description": {
+              "content": "Retrieve Monthly Treasury Statement (MTS) data on federal receipts and outlays by major classification. Provides monthly and year-to-date cumulative totals of federal government income and spending.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "accounting",
+                "mts",
+                "mts_table_4"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "fields",
+                  "value": "<string>",
+                  "description": "Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt)."
+                },
+                {
+                  "disabled": false,
+                  "key": "filter",
+                  "value": "<string>",
+                  "description": "Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+                },
+                {
+                  "disabled": false,
+                  "key": "sort",
+                  "value": "<string>",
+                  "description": "Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc"
+                },
+                {
+                  "disabled": false,
+                  "key": "page[number]",
+                  "value": "1",
+                  "description": "Page number for pagination (1-based)."
+                },
+                {
+                  "disabled": false,
+                  "key": "page[size]",
+                  "value": "100",
+                  "description": "Number of records per page (max 10000)."
+                },
+                {
+                  "disabled": false,
+                  "key": "format",
+                  "value": "json",
+                  "description": "Response format. Options: json (default), csv, xml."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "fc761006-8280-4565-904a-522d84da7a4e",
+              "name": "Successful response with MTS receipt and outlay data.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "accounting",
+                    "mts",
+                    "mts_table_4"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "record_date,tot_pub_debt_out_amt,debt_held_public_amt"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-record_date"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "100"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"record_date\": \"2026-03-31\",\n      \"classification_desc\": \"Individual Income Taxes\",\n      \"current_month_rcpt_outly_amt\": \"185000000000.00\",\n      \"current_fytd_rcpt_outly_amt\": \"1250000000000.00\",\n      \"prior_yr_fytd_rcpt_outly_amt\": \"1180000000000.00\"\n    }\n  ],\n  \"meta\": {\n    \"count\": 1,\n    \"total-count\": 12450,\n    \"total-pages\": 12450\n  },\n  \"links\": {\n    \"self\": \"&page%5Bnumber%5D=1&page%5Bsize%5D=1\"\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "647d5b3d-786c-419d-97b9-97b9d1403e02",
+              "name": "Bad request.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "accounting",
+                    "mts",
+                    "mts_table_4"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "fields",
+                      "value": "record_date,tot_pub_debt_out_amt,debt_held_public_amt"
+                    },
+                    {
+                      "key": "filter",
+                      "value": "record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+                    },
+                    {
+                      "key": "sort",
+                      "value": "-record_date"
+                    },
+                    {
+                      "key": "page[number]",
+                      "value": "1"
+                    },
+                    {
+                      "key": "page[size]",
+                      "value": "100"
+                    },
+                    {
+                      "key": "format",
+                      "value": "json"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"Bad Request\",\n  \"message\": \"Invalid filter parameter syntax.\",\n  \"status\": 400\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "367d5f85-93d0-41bb-a123-ce32216f089e",
+    "name": "Treasury Fiscal Data Exchange Rates Treasury Statements API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The U.S. Treasury Fiscal Data API provides free, open access to federal financial data including national debt, interest rates, exchange rates, and detailed fiscal operations data. No authentication or API key is required. The API uses RESTful principles, accepts GET requests, and returns JSON responses with standardized pagination, filtering, sorting, and field selection across 80+ endpoints covering all major Treasury financial reports.\n\nContact Support:\n Name: Bureau of the Fiscal Service\n Email: FiscalDataHelp@fiscal.treasury.gov",
+      "type": "text/plain"
+    }
+  }
+}

@@ -1,0 +1,116 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Treasury Fiscal Data Exchange Rates Securities API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Securities",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Treasury Fiscal Data Get Savings Bond Redemption Tables",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/redemption_tables",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt)."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (1-based)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page (max 10000)."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Options: json (default), csv, xml."
+              }
+            ]
+          },
+          "docs": "Retrieve savings bond redemption values for EE, E, I, and other U.S. savings bond series. Used by financial institutions and individuals to determine current redemption values."
+        },
+        {
+          "info": {
+            "name": "Treasury Fiscal Data Get Monthly Statement of the Public Debt",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/mspd_table_1",
+            "params": [
+              {
+                "name": "fields",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt)."
+              },
+              {
+                "name": "filter",
+                "value": "",
+                "type": "query",
+                "description": "Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31"
+              },
+              {
+                "name": "sort",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc"
+              },
+              {
+                "name": "page[number]",
+                "value": "",
+                "type": "query",
+                "description": "Page number for pagination (1-based)."
+              },
+              {
+                "name": "page[size]",
+                "value": "",
+                "type": "query",
+                "description": "Number of records per page (max 10000)."
+              },
+              {
+                "name": "format",
+                "value": "",
+                "type": "query",
+                "description": "Response format. Options: json (default), csv, xml."
+              }
+            ]
+          },
+          "docs": "Retrieve the Monthly Statement of the Public Debt (MSPD) showing the total outstanding federal debt broken down by Treasury security type (bills, notes, bonds, TIPS, FRNs, etc.)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
