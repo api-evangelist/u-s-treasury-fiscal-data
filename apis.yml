@@ -155,6 +155,13 @@ apis:
       https://raw.githubusercontent.com/api-evangelist/u-s-treasury-fiscal-data/refs/heads/main/examples/treasury-exchange-rate-record-example.json
 name: U.S. Treasury Fiscal Data
 tags:
+  - Federal-Government
+  - Finance
+  - Treasury
+  - National Debt
+  - Exchange Rates
+  - Economics
+tags_raw:
   - Federal Government
   - Finance
   - Treasury
