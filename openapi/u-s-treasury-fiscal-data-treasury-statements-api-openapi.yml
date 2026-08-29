@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Treasury Fiscal Data Exchange Rates Treasury Statements API
   description: The U.S. Treasury Fiscal Data API provides free, open access to federal financial data including national debt, interest rates, exchange rates, and detailed fiscal operations data. No authentication or API key is required. The API uses RESTful principles, accepts GET requests, and returns JSON responses with standardized pagination, filtering, sorting, and field selection across 80+ endpoints covering all major Treasury financial reports.
@@ -114,123 +114,47 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt).
-      schema:
-        type: string
-        example: record_date,tot_pub_debt_out_amt,debt_held_public_amt
-    format:
-      name: format
-      in: query
-      required: false
-      description: 'Response format. Options: json (default), csv, xml.'
-      schema:
-        type: string
-        enum:
-        - json
-        - csv
-        - xml
-        default: json
-        example: json
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: 'Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31'
-      schema:
-        type: string
-        example: record_date:gte:2025-01-01,record_date:lte:2025-12-31
-    pageSize:
-      name: page[size]
-      in: query
-      required: false
-      description: Number of records per page (max 10000).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-        default: 100
-        example: 100
-    sort:
-      name: sort
-      in: query
-      required: false
-      description: 'Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc'
-      schema:
-        type: string
-        example: -record_date
-    pageNumber:
-      name: page[number]
-      in: query
-      required: false
-      description: Page number for pagination (1-based).
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
   schemas:
-    FiscalLinks:
-      title: FiscalLinks
+    DailyTreasuryStatementResponse:
+      title: DailyTreasuryStatementResponse
       type: object
-      description: Pagination links for navigating result pages.
+      description: Response from the Daily Treasury Statement endpoint.
       properties:
-        self:
-          type: string
-          description: URL parameters for the current page.
-          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
-        first:
-          type: string
-          description: URL parameters for the first page.
-          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
-        prev:
-          type: string
-          nullable: true
-          description: URL parameters for the previous page (null if on first page).
-          example: null
-        next:
-          type: string
-          nullable: true
-          description: URL parameters for the next page (null if on last page).
-          example: '&page%5Bnumber%5D=2&page%5Bsize%5D=100'
-        last:
-          type: string
-          description: URL parameters for the last page.
-          example: '&page%5Bnumber%5D=83&page%5Bsize%5D=100'
-    DailyTreasuryRecord:
-      title: DailyTreasuryRecord
+        data:
+          type: array
+          description: Array of DTS records.
+          items:
+            $ref: '#/components/schemas/DailyTreasuryRecord'
+        meta:
+          $ref: '#/components/schemas/FiscalMeta'
+        links:
+          $ref: '#/components/schemas/FiscalLinks'
+    MonthlyTreasuryRecord:
+      title: MonthlyTreasuryRecord
       type: object
-      description: A single record from the Daily Treasury Statement.
+      description: A single record from the Monthly Treasury Statement.
       properties:
         record_date:
           type: string
           format: date
-          description: Date of the treasury statement.
-          example: '2026-04-30'
-        account_type:
+          description: Record date (last day of the month).
+          example: '2026-03-31'
+        classification_desc:
           type: string
-          description: Treasury account type.
-          example: Federal Reserve Account
-        open_today_bal:
+          description: Classification description (e.g., budget category).
+          example: Individual Income Taxes
+        current_month_rcpt_outly_amt:
           type: string
-          description: Opening balance for the day in U.S. dollars.
-          example: '850123456789.00'
-        close_today_bal:
+          description: Current month receipts or outlays in U.S. dollars.
+          example: '185000000000.00'
+        current_fytd_rcpt_outly_amt:
           type: string
-          description: Closing balance for the day in U.S. dollars.
-          example: '845678901234.00'
-        open_mo_bal:
+          description: Fiscal year to date receipts or outlays in U.S. dollars.
+          example: '1250000000000.00'
+        prior_yr_fytd_rcpt_outly_amt:
           type: string
-          description: Opening balance for the month.
-          example: '750000000000.00'
-        open_fy_bal:
-          type: string
-          description: Opening balance for the fiscal year.
-          example: '700000000000.00'
+          description: Prior year fiscal year to date amount.
+          example: '1180000000000.00'
     FiscalMeta:
       title: FiscalMeta
       type: object
@@ -302,43 +226,121 @@ components:
           type: integer
           description: HTTP status code.
           example: 400
-    MonthlyTreasuryRecord:
-      title: MonthlyTreasuryRecord
+    DailyTreasuryRecord:
+      title: DailyTreasuryRecord
       type: object
-      description: A single record from the Monthly Treasury Statement.
+      description: A single record from the Daily Treasury Statement.
       properties:
         record_date:
           type: string
           format: date
-          description: Record date (last day of the month).
-          example: '2026-03-31'
-        classification_desc:
+          description: Date of the treasury statement.
+          example: '2026-04-30'
+        account_type:
           type: string
-          description: Classification description (e.g., budget category).
-          example: Individual Income Taxes
-        current_month_rcpt_outly_amt:
+          description: Treasury account type.
+          example: Federal Reserve Account
+        open_today_bal:
           type: string
-          description: Current month receipts or outlays in U.S. dollars.
-          example: '185000000000.00'
-        current_fytd_rcpt_outly_amt:
+          description: Opening balance for the day in U.S. dollars.
+          example: '850123456789.00'
+        close_today_bal:
           type: string
-          description: Fiscal year to date receipts or outlays in U.S. dollars.
-          example: '1250000000000.00'
-        prior_yr_fytd_rcpt_outly_amt:
+          description: Closing balance for the day in U.S. dollars.
+          example: '845678901234.00'
+        open_mo_bal:
           type: string
-          description: Prior year fiscal year to date amount.
-          example: '1180000000000.00'
-    DailyTreasuryStatementResponse:
-      title: DailyTreasuryStatementResponse
+          description: Opening balance for the month.
+          example: '750000000000.00'
+        open_fy_bal:
+          type: string
+          description: Opening balance for the fiscal year.
+          example: '700000000000.00'
+    FiscalLinks:
+      title: FiscalLinks
       type: object
-      description: Response from the Daily Treasury Statement endpoint.
+      description: Pagination links for navigating result pages.
       properties:
-        data:
-          type: array
-          description: Array of DTS records.
-          items:
-            $ref: '#/components/schemas/DailyTreasuryRecord'
-        meta:
-          $ref: '#/components/schemas/FiscalMeta'
-        links:
-          $ref: '#/components/schemas/FiscalLinks'
+        self:
+          type: string
+          description: URL parameters for the current page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        first:
+          type: string
+          description: URL parameters for the first page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL parameters for the previous page (null if on first page).
+          example: null
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL parameters for the next page (null if on last page).
+          example: '&page%5Bnumber%5D=2&page%5Bsize%5D=100'
+        last:
+          type: string
+          description: URL parameters for the last page.
+          example: '&page%5Bnumber%5D=83&page%5Bsize%5D=100'
+  parameters:
+    pageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of records per page (max 10000).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+        default: 100
+        example: 100
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: 'Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc'
+      schema:
+        type: string
+        example: -record_date
+    pageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: Page number for pagination (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt).
+      schema:
+        type: string
+        example: record_date,tot_pub_debt_out_amt,debt_held_public_amt
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: 'Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31'
+      schema:
+        type: string
+        example: record_date:gte:2025-01-01,record_date:lte:2025-12-31
+    format:
+      name: format
+      in: query
+      required: false
+      description: 'Response format. Options: json (default), csv, xml.'
+      schema:
+        type: string
+        enum:
+        - json
+        - csv
+        - xml
+        default: json
+        example: json

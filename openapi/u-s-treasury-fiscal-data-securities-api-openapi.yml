@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Treasury Fiscal Data Exchange Rates Securities API
   description: The U.S. Treasury Fiscal Data API provides free, open access to federal financial data including national debt, interest rates, exchange rates, and detailed fiscal operations data. No authentication or API key is required. The API uses RESTful principles, accepts GET requests, and returns JSON responses with standardized pagination, filtering, sorting, and field selection across 80+ endpoints covering all major Treasury financial reports.
@@ -112,35 +112,6 @@ paths:
         dispatcher: FALLBACK
 components:
   parameters:
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt).
-      schema:
-        type: string
-        example: record_date,tot_pub_debt_out_amt,debt_held_public_amt
-    format:
-      name: format
-      in: query
-      required: false
-      description: 'Response format. Options: json (default), csv, xml.'
-      schema:
-        type: string
-        enum:
-        - json
-        - csv
-        - xml
-        default: json
-        example: json
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: 'Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31'
-      schema:
-        type: string
-        example: record_date:gte:2025-01-01,record_date:lte:2025-12-31
     pageSize:
       name: page[size]
       in: query
@@ -170,34 +141,36 @@ components:
         minimum: 1
         default: 1
         example: 1
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt).
+      schema:
+        type: string
+        example: record_date,tot_pub_debt_out_amt,debt_held_public_amt
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: 'Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31'
+      schema:
+        type: string
+        example: record_date:gte:2025-01-01,record_date:lte:2025-12-31
+    format:
+      name: format
+      in: query
+      required: false
+      description: 'Response format. Options: json (default), csv, xml.'
+      schema:
+        type: string
+        enum:
+        - json
+        - csv
+        - xml
+        default: json
+        example: json
   schemas:
-    FiscalLinks:
-      title: FiscalLinks
-      type: object
-      description: Pagination links for navigating result pages.
-      properties:
-        self:
-          type: string
-          description: URL parameters for the current page.
-          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
-        first:
-          type: string
-          description: URL parameters for the first page.
-          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
-        prev:
-          type: string
-          nullable: true
-          description: URL parameters for the previous page (null if on first page).
-          example: null
-        next:
-          type: string
-          nullable: true
-          description: URL parameters for the next page (null if on last page).
-          example: '&page%5Bnumber%5D=2&page%5Bsize%5D=100'
-        last:
-          type: string
-          description: URL parameters for the last page.
-          example: '&page%5Bnumber%5D=83&page%5Bsize%5D=100'
     FiscalMeta:
       title: FiscalMeta
       type: object
@@ -270,3 +243,32 @@ components:
           $ref: '#/components/schemas/FiscalMeta'
         links:
           $ref: '#/components/schemas/FiscalLinks'
+    FiscalLinks:
+      title: FiscalLinks
+      type: object
+      description: Pagination links for navigating result pages.
+      properties:
+        self:
+          type: string
+          description: URL parameters for the current page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        first:
+          type: string
+          description: URL parameters for the first page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL parameters for the previous page (null if on first page).
+          example: null
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL parameters for the next page (null if on last page).
+          example: '&page%5Bnumber%5D=2&page%5Bsize%5D=100'
+        last:
+          type: string
+          description: URL parameters for the last page.
+          example: '&page%5Bnumber%5D=83&page%5Bsize%5D=100'

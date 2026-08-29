@@ -1,4 +1,4 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: Treasury Fiscal Data Exchange Rates National Debt API
   description: The U.S. Treasury Fiscal Data API provides free, open access to federal financial data including national debt, interest rates, exchange rates, and detailed fiscal operations data. No authentication or API key is required. The API uses RESTful principles, accepts GET requests, and returns JSON responses with standardized pagination, filtering, sorting, and field selection across 80+ endpoints covering all major Treasury financial reports.
@@ -212,107 +212,57 @@ paths:
         delay: 0
         dispatcher: FALLBACK
 components:
-  parameters:
-    fields:
-      name: fields
-      in: query
-      required: false
-      description: Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt).
-      schema:
-        type: string
-        example: record_date,tot_pub_debt_out_amt,debt_held_public_amt
-    filter:
-      name: filter
-      in: query
-      required: false
-      description: 'Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31'
-      schema:
-        type: string
-        example: record_date:gte:2025-01-01,record_date:lte:2025-12-31
-    format:
-      name: format
-      in: query
-      required: false
-      description: 'Response format. Options: json (default), csv, xml.'
-      schema:
-        type: string
-        enum:
-        - json
-        - csv
-        - xml
-        default: json
-        example: json
-    pageSize:
-      name: page[size]
-      in: query
-      required: false
-      description: Number of records per page (max 10000).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 10000
-        default: 100
-        example: 100
-    sort:
-      name: sort
-      in: query
-      required: false
-      description: 'Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc'
-      schema:
-        type: string
-        example: -record_date
-    pageNumber:
-      name: page[number]
-      in: query
-      required: false
-      description: Page number for pagination (1-based).
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
-        example: 1
   schemas:
-    InterestRateResponse:
-      title: InterestRateResponse
+    DebtRecord:
+      title: DebtRecord
       type: object
-      description: Response from the Average Interest Rates endpoint.
+      description: A single record from the Debt to the Penny dataset.
       properties:
-        data:
-          type: array
-          description: Array of interest rate records.
-          items:
-            $ref: '#/components/schemas/InterestRateRecord'
-        meta:
-          $ref: '#/components/schemas/FiscalMeta'
-        links:
-          $ref: '#/components/schemas/FiscalLinks'
-    FiscalLinks:
-      title: FiscalLinks
-      type: object
-      description: Pagination links for navigating result pages.
-      properties:
-        self:
+        record_date:
           type: string
-          description: URL parameters for the current page.
-          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
-        first:
+          format: date
+          description: Date of the debt calculation in YYYY-MM-DD format.
+          example: '2026-04-30'
+        tot_pub_debt_out_amt:
           type: string
-          description: URL parameters for the first page.
-          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
-        prev:
+          description: Total public debt outstanding in U.S. dollars.
+          example: '38967833861543.11'
+        debt_held_public_amt:
           type: string
-          nullable: true
-          description: URL parameters for the previous page (null if on first page).
-          example: null
-        next:
+          description: Portion of debt held by the public in U.S. dollars.
+          example: '31272489865435.88'
+        intragov_hold_amt:
           type: string
-          nullable: true
-          description: URL parameters for the next page (null if on last page).
-          example: '&page%5Bnumber%5D=2&page%5Bsize%5D=100'
-        last:
+          description: Intragovernmental holdings in U.S. dollars.
+          example: '7695343996107.23'
+        src_line_nbr:
           type: string
-          description: URL parameters for the last page.
-          example: '&page%5Bnumber%5D=83&page%5Bsize%5D=100'
+          description: Source line number.
+          example: '1'
+        record_fiscal_year:
+          type: string
+          description: Federal fiscal year of the record.
+          example: '2026'
+        record_fiscal_quarter:
+          type: string
+          description: Federal fiscal quarter of the record.
+          example: Q2
+        record_calendar_year:
+          type: string
+          description: Calendar year of the record.
+          example: '2026'
+        record_calendar_quarter:
+          type: string
+          description: Calendar quarter of the record.
+          example: Q2
+        record_calendar_month:
+          type: string
+          description: Calendar month of the record.
+          example: '04'
+        record_calendar_day:
+          type: string
+          description: Calendar day of the record.
+          example: '30'
     DebtToPennyResponse:
       title: DebtToPennyResponse
       type: object
@@ -367,6 +317,20 @@ components:
           type: integer
           description: Total number of pages available.
           example: 83
+    InterestRateResponse:
+      title: InterestRateResponse
+      type: object
+      description: Response from the Average Interest Rates endpoint.
+      properties:
+        data:
+          type: array
+          description: Array of interest rate records.
+          items:
+            $ref: '#/components/schemas/InterestRateRecord'
+        meta:
+          $ref: '#/components/schemas/FiscalMeta'
+        links:
+          $ref: '#/components/schemas/FiscalLinks'
     ErrorResponse:
       title: ErrorResponse
       type: object
@@ -421,53 +385,91 @@ components:
           format: date
           description: Record date in YYYY-MM-DD format.
           example: '2026-03-31'
-    DebtRecord:
-      title: DebtRecord
+    FiscalLinks:
+      title: FiscalLinks
       type: object
-      description: A single record from the Debt to the Penny dataset.
+      description: Pagination links for navigating result pages.
       properties:
-        record_date:
+        self:
           type: string
-          format: date
-          description: Date of the debt calculation in YYYY-MM-DD format.
-          example: '2026-04-30'
-        tot_pub_debt_out_amt:
+          description: URL parameters for the current page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        first:
           type: string
-          description: Total public debt outstanding in U.S. dollars.
-          example: '38967833861543.11'
-        debt_held_public_amt:
+          description: URL parameters for the first page.
+          example: '&page%5Bnumber%5D=1&page%5Bsize%5D=100'
+        prev:
+          type:
+          - string
+          - 'null'
+          description: URL parameters for the previous page (null if on first page).
+          example: null
+        next:
+          type:
+          - string
+          - 'null'
+          description: URL parameters for the next page (null if on last page).
+          example: '&page%5Bnumber%5D=2&page%5Bsize%5D=100'
+        last:
           type: string
-          description: Portion of debt held by the public in U.S. dollars.
-          example: '31272489865435.88'
-        intragov_hold_amt:
-          type: string
-          description: Intragovernmental holdings in U.S. dollars.
-          example: '7695343996107.23'
-        src_line_nbr:
-          type: string
-          description: Source line number.
-          example: '1'
-        record_fiscal_year:
-          type: string
-          description: Federal fiscal year of the record.
-          example: '2026'
-        record_fiscal_quarter:
-          type: string
-          description: Federal fiscal quarter of the record.
-          example: Q2
-        record_calendar_year:
-          type: string
-          description: Calendar year of the record.
-          example: '2026'
-        record_calendar_quarter:
-          type: string
-          description: Calendar quarter of the record.
-          example: Q2
-        record_calendar_month:
-          type: string
-          description: Calendar month of the record.
-          example: '04'
-        record_calendar_day:
-          type: string
-          description: Calendar day of the record.
-          example: '30'
+          description: URL parameters for the last page.
+          example: '&page%5Bnumber%5D=83&page%5Bsize%5D=100'
+  parameters:
+    sort:
+      name: sort
+      in: query
+      required: false
+      description: 'Comma-separated list of field names to sort by. Prefix with minus (-) for descending order. Example: sort=-record_date,security_desc'
+      schema:
+        type: string
+        example: -record_date
+    pageSize:
+      name: page[size]
+      in: query
+      required: false
+      description: Number of records per page (max 10000).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 10000
+        default: 100
+        example: 100
+    pageNumber:
+      name: page[number]
+      in: query
+      required: false
+      description: Page number for pagination (1-based).
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+        example: 1
+    fields:
+      name: fields
+      in: query
+      required: false
+      description: Comma-separated list of field names to include in the response. Use to limit output to specific columns (e.g., fields=record_date,tot_pub_debt_out_amt).
+      schema:
+        type: string
+        example: record_date,tot_pub_debt_out_amt,debt_held_public_amt
+    filter:
+      name: filter
+      in: query
+      required: false
+      description: 'Filter criteria using format field:operator:value. Multiple filters separated by commas. Operators: eq (equals), lt (less than), lte (less than or equal), gt (greater than), gte (greater than or equal), in (in list). Example: filter=record_date:gte:2025-01-01,record_date:lte:2025-12-31'
+      schema:
+        type: string
+        example: record_date:gte:2025-01-01,record_date:lte:2025-12-31
+    format:
+      name: format
+      in: query
+      required: false
+      description: 'Response format. Options: json (default), csv, xml.'
+      schema:
+        type: string
+        enum:
+        - json
+        - csv
+        - xml
+        default: json
+        example: json
